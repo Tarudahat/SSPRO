@@ -21,12 +21,7 @@
         "icons/*.png",
         "html_pages/SSPRO_settings.html",
         "scripts/SSPRO_SETTINGS.js"
-    ],
-
-    "background":{
-        "page": "pain.html",
-        "persistent":true
-    }
+    ]
 }
 
 
