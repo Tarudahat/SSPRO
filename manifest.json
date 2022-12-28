@@ -1,0 +1,33 @@
+{
+    "manifest_version": 2,
+    "name": "SSPRO",
+    "version":"1.0",
+
+    "icons":{
+        "48":"icons/SSPRO.png"
+    },
+
+    "description":"Adds quality of life improvements to Smartschool.",
+
+    
+    "content_scripts": [
+        {
+          "matches": ["*://*.smartschool.be/*"],
+          "js": ["scripts/SSPRO.js"]
+        }
+    ],
+
+    "web_accessible_resources": [
+        "icons/*.png",
+        "html_pages/SSPRO_settings.html",
+        "scripts/SSPRO_SETTINGS.js"
+    ],
+
+    "background":{
+        "page": "pain.html",
+        "persistent":true
+    }
+}
+
+
+

@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>SSPRO instellingen</title>
+        <link rel="icon" href="/icons/SSPRO.png" name="SSPRO_ICON"></link>
+        <style>
+            .navbar{
+                margin-top: -8;
+                margin-left: -8;
+                padding: 0;
+                height: 48px;
+                width: 150%;
+                min-height: 48px;
+                background: #ff520e;
+                align-items: center;
+                display: flex;
+            }
+            .navbar_btn{
+                display: block;
+                height: 100%;
+                white-space: nowrap;
+                padding: 0 1rem;
+                margin: 0;
+                font-weight: 400;
+                border: none;
+                border-radius: 0;
+                background: none;
+                cursor: pointer;
+                transition-duration: 0.3s, 0.1s;
+                transition-timing-function: ease, ease;
+                transition-delay: 0s, 0s;
+                line-height: 48px;
+                color: #eeeeee;
+                font-size: 1.03rem;
+            }
+            .navbar_btn:hover{
+                color: #fff;
+                text-decoration: none;
+                background-color: rgba(0,0,0,.24);
+            }
+            .navbar_btn-exit{
+                background-image: url(=1=);
+            }
+            body
+            {
+                background-color: #eeeeee;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <nav class="navbar">
+            <button id="rtrn_btn" class="navbar_btn" title="Ga terug">Ga terug</button>
+            <a id="exit_btn" href="" class="navbar_btn navbar_btn-exit " title="Afmelden"></a>
+        </nav>
+        <script src="/scripts/SSPRO_SETTINGS.js"></script>
+    </body>
+</html>
