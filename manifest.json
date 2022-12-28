@@ -9,7 +9,6 @@
 
     "description":"Adds quality of life improvements to Smartschool.",
 
-    
     "content_scripts": [
         {
           "matches": ["*://*.smartschool.be/*"],
@@ -21,6 +20,10 @@
         "icons/*.png",
         "html_pages/SSPRO_settings.html",
         "scripts/SSPRO_SETTINGS.js"
+    ],
+    
+    "permissions": [
+        "storage"
     ]
 }
 
