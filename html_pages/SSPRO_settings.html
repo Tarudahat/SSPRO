@@ -48,7 +48,29 @@
             }
             body
             {
-                background-color: #eeeeee;
+                background-color: #ffffff;
+            }
+            .option_btn{
+                padding: 14px;
+                border-radius: 4px;
+                border: 2px solid #ff520e;
+                background-color: #ff520e;
+                font-size: 18px;
+                color: white;
+                text-align: center;
+                cursor: pointer;
+            }
+            .option_btn.off{
+                background-color: white;
+                border: 2px solid rgb(219, 219, 219);
+                color: rgb(59, 59, 59);
+            }
+            .option_btn:hover{
+                background-color: #df470b;
+                transition: 725ms;
+            }
+            .option_btn.off:hover{
+                background-color: rgb(226, 226, 226);
             }
         </style>
         
@@ -58,6 +80,8 @@
             <button id="rtrn_btn" class="navbar_btn" title="Ga terug">Ga terug</button>
             <a id="exit_btn" href="" class="navbar_btn navbar_btn-exit " title="Afmelden"></a>
         </nav>
+        <button id="show_dvj_btn" class="option_btn" title='Geef "Diensten voor jongeren" weer'>Diensten voor jongeren</button>
+        <button id="purple_score_btn" class="option_btn" title='Geeft scores boven 95% weer in het paars'>Paarse scores</button>
         <script src="/scripts/SSPRO_SETTINGS.js"></script>
     </body>
 </html>
