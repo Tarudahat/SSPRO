@@ -38,7 +38,7 @@ function scrape_pplscore_nodes(){
         }else if(scraped_score>=90)
         {
             let score_block = prg_list[i].parentNode.parentNode.parentNode;
-            score_block.className = score_block.className.replace("-purple-combo--200 selected","-purple-combo--100");
+            score_block.className = score_block.className.replace("-purple-combo--200","-purple-combo--100");
             score_block.className = score_block.className.replace("-blue-combo--","-purple-combo--");
             score_block.getElementsByTagName("circle")[0].style.cssText = score_block.getElementsByTagName("circle")[0].style.cssText.replace("blue","purple");
             score_block.getElementsByTagName("circle")[1].style.cssText = score_block.getElementsByTagName("circle")[1].style.cssText.replace("blue","purple");
@@ -66,5 +66,4 @@ topnav.appendChild(sspro_settings_btn);
 //apply options
 if(document.contains(document.getElementById("homepage__block--student-support"))){rmv_dvj();};
 check_ppl_bool().then((use_ppl)=>{if(document.contains(document.getElementsByClassName("results")[0])&&use_ppl){setInterval(scrape_pplscore_nodes,85);};});
-
 
