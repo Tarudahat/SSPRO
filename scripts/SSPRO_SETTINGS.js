@@ -40,3 +40,7 @@ document.getElementById("rtrn_btn").addEventListener("click",()=>{history.back()
 sync_btn2bool("show_dvj");
 document.getElementById("show_dvj_btn").addEventListener("click",()=>{toggle_bool("show_dvj");sync_btn2bool("show_dvj")});
 
+sync_btn2bool("purple_score");
+document.getElementById("purple_score_btn").addEventListener("click",()=>{toggle_bool("purple_score");sync_btn2bool("purple_score")});
+
+
