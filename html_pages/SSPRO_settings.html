@@ -2,84 +2,19 @@
     <head>
         <title>SSPRO instellingen</title>
         <link rel="icon" href="/icons/SSPRO.png" name="SSPRO_ICON"></link>
-        <style>
-            .navbar{
-                margin-top: -8;
-                margin-left: -8;
-                padding: 0;
-                height: 48px;
-                width: 101%;
-                min-height: 48px;
-                background: #ff520e;
-                align-items: center;
-                display: flex;
-            }
-            .navbar_btn{
-                display: block;
-                height: 100%;
-                white-space: nowrap;
-                padding: 0 1rem;
-                margin: 0;
-                font-weight: 400;
-                border: none;
-                border-radius: 0;
-                background: none;
-                cursor: pointer;
-                transition-duration: 0.3s, 0.1s;
-                transition-timing-function: ease, ease;
-                transition-delay: 0s, 0s;
-                line-height: 48px;
-                color: #eeeeee;
-                font-size: 1.02rem;
-            }
-            .navbar_btn:hover{
-                color: #fff;
-                text-decoration: none;
-                background-color: rgba(0,0,0,.24);
-            }
-            .navbar_btn-exit{
-                background-image: url(=1=);
-                width: 13px;
-                overflow: hidden;
-                background-size: 24px;
-                background-repeat: no-repeat;
-                background-position: 50%;
-                margin-left: auto;
-            }
-            body
-            {
-                background-color: #ffffff;
-            }
-            .option_btn{
-                padding: 14px;
-                border-radius: 4px;
-                border: 2px solid #ff520e;
-                background-color: #ff520e;
-                font-size: 18px;
-                color: white;
-                text-align: center;
-                cursor: pointer;
-            }
-            .option_btn.off{
-                background-color: white;
-                border: 2px solid rgb(219, 219, 219);
-                color: rgb(59, 59, 59);
-            }
-            .option_btn:hover{
-                background-color: #df470b;
-                transition: 725ms;
-            }
-            .option_btn.off:hover{
-                background-color: rgb(226, 226, 226);
-            }
-        </style>
-        
+        <link rel="stylesheet" href="/html_pages/SSPRO_settings.css"></style>
     </head>
     <body>
         <nav class="navbar">
             <button id="rtrn_btn" class="navbar_btn" title="Ga terug">Ga terug</button>
             <a id="exit_btn" href="" class="navbar_btn navbar_btn-exit " title="Afmelden"></a>
         </nav>
+        <h1>
+            <div>Thema:</div>
+            <input id="navbar_color_btn" type="color" class="color_picker" title="kleur navigatiebalk" value="#FF520E"></input>
+            <input id="bg_color_btn" type="color" class="color_picker" title="kleur achtergrond" value="#FFFFFF"></input>
+            <input id="font_color_btn" type="color" class="color_picker" title="kleur tekst" value="#FFFFFF"></input>
+        </h1>
         <button id="show_dvj_btn" class="option_btn" title='Geeft "Diensten voor jongeren" weer op de startpagina.'>Diensten voor jongeren</button>
         <button id="purple_score_btn" class="option_btn" title='Geeft scores boven/gelijk aan 95% weer in het paars.'>Paarse scores</button>
         <script src="/scripts/SSPRO_SETTINGS.js"></script>
