@@ -44,6 +44,9 @@ async function get_clr_val(obj_name) {
             switch (obj_name) {
                 case "navbar_color":
                     document.getElementsByClassName("navbar")[0].style.cssText = "background:" + a[obj_name] + ";";
+                    let e = document.createElement("style");
+                    e.innerText = ".option_btn {border: 2px solid " + a[obj_name] + ";background-color:" + a[obj_name] + ";}";
+                    document.head.appendChild(e);
                     break;
                 case "bg_color":
                     document.body.style.cssText = "background:" + a[obj_name] + ";";
@@ -63,14 +66,16 @@ document.getElementById("show_dvj_btn").addEventListener("click", () => { toggle
 sync_btn2bool("purple_score");
 document.getElementById("purple_score_btn").addEventListener("click", () => { toggle_bool("purple_score"); sync_btn2bool("purple_score") });
 
+sync_btn2bool("border");
+document.getElementById("border_btn").addEventListener("click", () => { toggle_bool("border"); sync_btn2bool("border") });
+
 get_clr_val("navbar_color");
 document.getElementById("navbar_color_btn").addEventListener("input", () => { set_clr_val("navbar_color"); get_clr_val("navbar_color") });
 
 get_clr_val("bg_color");
-document.getElementById("bg_color_btn").addEventListener("input", () => { set_clr_val("bg_color"); get_clr_val("bg_color") });
+document.getElementById("bg_color_btn").addEventListener("input", () => { set_clr_val("bg_color"); get_clr_val("bg_color"); });
 
-get_clr_val("font_color");
-document.getElementById("font_color_btn").addEventListener("input", () => { set_clr_val("font_color"); get_clr_val("font_color") });
-
+get_clr_val("bg2_color");
+document.getElementById("bg2_color_btn").addEventListener("input", () => { set_clr_val("bg2_color"); get_clr_val("bg2_color"); });
 
 

@@ -61,19 +61,16 @@ body {
 }
 
 .option_btn.off {
-    background-color: #ffffff;
+    background-color: transparent;
     border: 2px solid rgb(219, 219, 219);
     color: rgb(59, 59, 59);
 }
 
 .option_btn:hover {
-    background-color: #df470b;
+    opacity: 0.65;
     transition: 725ms;
 }
 
-.option_btn.off:hover {
-    background-color: rgb(226, 226, 226);
-}
 
 .color_picker {
     cursor: pointer;

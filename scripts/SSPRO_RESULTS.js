@@ -1,9 +1,8 @@
 "use strict"
 
-async function check_ppl_bool() {
-    let show_bool = false;
+async function check_bool(bool_name) {
     let rtrn_bool = false;
-    await browser.storage.local.get("purple_score").then((show_bool) => { rtrn_bool = show_bool.purple_score });
+    await browser.storage.local.get(bool_name).then((show_bool) => { rtrn_bool = show_bool[bool_name] });
     return rtrn_bool;
 }
 
@@ -45,4 +44,4 @@ function scrape_pplscore_nodes() {
 
 }
 
-check_ppl_bool().then((use_ppl) => { if (document.contains(document.getElementsByClassName("results")[0]) && use_ppl) { setInterval(scrape_pplscore_nodes, 80); }; });
+check_bool("purple_score").then((use_ppl) => { if (use_ppl) { setInterval(scrape_pplscore_nodes, 80); }; });
