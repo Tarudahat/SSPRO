@@ -56,18 +56,32 @@ async function get_clr_val(obj_name) {
     });
 }
 
-//clean this up or smtng
+function rtrn_theme_2_normal() {
+    if (document.getElementById("use_theme_btn").classList.contains("off")) {
+        document.getElementById("navbar_color_btn").value = "#FF520E";
+        document.getElementById("bg_color_btn").value = "#FFFFFF";
+        document.getElementById("bg2_color_btn").value = "#FFFFFF";
+        set_clr_val("navbar_color");
+        set_clr_val("bg2_color");
+        set_clr_val("bg_color");
+        get_clr_val("navbar_color");
+        get_clr_val("bg2_color");
+        get_clr_val("bg_color");
+    }
+}
+
+const bool_name_array = ["show_dvj", "show_dvj", "purple_score", "use_icon", "border"];
+
 get_home_url();
 document.getElementById("rtrn_btn").addEventListener("click", () => { history.back(); });
 
-sync_btn2bool("show_dvj");
-document.getElementById("show_dvj_btn").addEventListener("click", () => { toggle_bool("show_dvj"); sync_btn2bool("show_dvj") });
+sync_btn2bool("use_theme");
+document.getElementById("use_theme_btn").addEventListener("click", () => { toggle_bool("use_theme"); sync_btn2bool("use_theme"); rtrn_theme_2_normal(); });
 
-sync_btn2bool("purple_score");
-document.getElementById("purple_score_btn").addEventListener("click", () => { toggle_bool("purple_score"); sync_btn2bool("purple_score") });
-
-sync_btn2bool("border");
-document.getElementById("border_btn").addEventListener("click", () => { toggle_bool("border"); sync_btn2bool("border") });
+for (let i = 0; i < bool_name_array.length; i++) {
+    sync_btn2bool(bool_name_array[i]);
+    document.getElementById(bool_name_array[i] + "_btn").addEventListener("click", () => { toggle_bool(bool_name_array[i]); sync_btn2bool(bool_name_array[i]) });
+}
 
 get_clr_val("navbar_color");
 document.getElementById("navbar_color_btn").addEventListener("input", () => { set_clr_val("navbar_color"); get_clr_val("navbar_color") });
@@ -77,5 +91,4 @@ document.getElementById("bg_color_btn").addEventListener("input", () => { set_cl
 
 get_clr_val("bg2_color");
 document.getElementById("bg2_color_btn").addEventListener("input", () => { set_clr_val("bg2_color"); get_clr_val("bg2_color"); });
-
 
