@@ -1,5 +1,9 @@
 "use strict"
 
+var bar_wdth_style = document.createElement("style");
+bar_wdth_style.innerText = ".navbar{width:" + String(window.outerWidth) + "px !important}";
+document.head.appendChild(bar_wdth_style);
+
 async function get_home_url() {
     let a;
     let home_url;
@@ -70,7 +74,7 @@ function rtrn_theme_2_normal() {
     }
 }
 
-const bool_name_array = ["show_dvj", "show_dvj", "purple_score", "use_icon", "border"];
+const bool_name_array = ["show_dvj", "purple_score", "use_icon", "border", "show_graph"];
 
 get_home_url();
 document.getElementById("rtrn_btn").addEventListener("click", () => { history.back(); });

@@ -1,0 +1,21 @@
+.option_btn {
+    padding: 14px;
+    border-radius: 4px;
+    border: 2px solid #ff520e;
+    background-color: #ff520e;
+    font-size: 18px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.option_btn.off {
+    background-color: transparent;
+    border: 2px solid rgb(219, 219, 219);
+    color: rgb(34, 34, 34);
+}
+
+.option_btn:hover {
+    opacity: 0.65;
+    transition: 725ms;
+}

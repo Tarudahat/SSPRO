@@ -30,6 +30,7 @@ function inject_icon_css() {
     }
     css_element.innerText += "\n .SSPRO_notif_badge_messages{position:absolute !important;right:197px;top:24px}";
     css_element.innerText += "\n .SSPRO_notif_badge_notifs{position:absolute !important;top:24px}";
+    css_element.innerText += "\n .btn_icon_graph{background-image: url('" + browser.runtime.getURL("icons/SSPRO_graph.png") + "') !important;}"
     document.head.appendChild(css_element);
 }
 
@@ -40,7 +41,7 @@ async function apply_theme() {
         cstm_theme_used = use_theme_["use_theme"];
         let css_element = document.createElement("style");
         css_element.innerText = ".smsc-topnav .navbar_btn_icon_SSPRO{background-image: url('" + browser.runtime.getURL("icons/SSPRO_setting.png") + "') !important;}";
-        if (document.head == null) { apply_theme(); };
+        if (!(document.head)) { apply_theme(); };
         check_bool("use_icon").then((() => { inject_icon_css(); }));
         document.head.appendChild(css_element);
     });
@@ -50,14 +51,14 @@ async function apply_theme() {
             e.innerText = ".topnav,.login-app__platform-indicator{background-color:" + a["navbar_color"] + " !important;}\nbody{border-top-color:" + a["navbar_color"] + "!important}";
             document.head.appendChild(e);
         });
-        await browser.storage.local.get("bg_color").then((a) => {
-            let e = document.createElement("style");
-            e.innerText = ".ui-dialog-buttonpane,.ui-dialog-titlebar,.ui-dialog,.modern-message__actions,.context-menu,.notifs-toaster__toast,option,.spacer,.showLeftNav,.detailContainerBlockValue,.content_container,.contentContainer,.smsc-container,body,.smsc-contextmenu-bubble,.selectionContainer,.agenda_grid_main,.topnav__menu,.bubble,.helper--height--mega,td,.dialog-content,.side-panel__panel,.wide-toolbar,.wide-toolbar__item,.wide-toolbar__item--selected,.topnav__menu-arrow,.msgDetail--empty,.messageframe,.toolbar,.folders,.smscleftnavcontainer,.msgContentVal,.smsc-contextmenu-arrow::before{background-color:" + a["bg_color"] + " !important;}\n.smsc-contextmenu-arrow::after,.topnav__menu-arrow::after,.ui-dialog-titlebar{border-color:" + a["bg_color"] + " #0000 !important;}";
-            document.head.appendChild(e);
-        });
         await browser.storage.local.get("bg2_color").then((a) => {
             let e = document.createElement("style");
-            e.innerText = ".ui-button,.color_snow_white,.menu-item:hover,.modern-message__action:hover,.ui-button-icon,.topnav__menuitem:hover,.modern-message:hover,.smsc-column-nav__button:hover,.bootstrap__input,select,.skinButton,.skinButtonBg,.wide-toolbar__item::after,.wide-toolbar__item::before,.smsc-dropzone,.modern-message--selected,.blob,.navNextInput,.navPrevInput,.float-label__input,.input-search,.smscButton,.course-ico,.btn,checkbox {background-color:" + a["bg2_color"] + " !important; border-color:" + a["bg2_color"] + " !important;}\n.cell--spacer{border-color:" + a["bg2_color"] + " #0000 !important;}";
+            e.innerText = ".wide-toolbar__item,.listview__row:hover,.ui-button,.color_snow_white,.menu-item:hover,.modern-message__action:hover,.ui-button-icon,.topnav__menuitem:hover,.modern-message:hover,.smsc-column-nav__button:hover,.bootstrap__input,select,.skinButton,.skinButtonBg,.wide-toolbar__item::after,.wide-toolbar__item::before,.smsc-dropzone,.modern-message--selected,.blob,.navNextInput,.navPrevInput,.float-label__input,.input-search,.smscButton,.course-ico,.btn,checkbox {background-color:" + a["bg2_color"] + " !important; border-color:" + a["bg2_color"] + " !important;}\n.cell--spacer{border-color:" + a["bg2_color"] + " #0000 !important;}";
+            document.head.appendChild(e);
+        });
+        await browser.storage.local.get("bg_color").then((a) => {
+            let e = document.createElement("style");
+            e.innerText = ".ui-dialog-buttonpane,.ui-dialog-titlebar,.ui-dialog,.modern-message__actions,.context-menu,.notifs-toaster__toast,option,.spacer,.showLeftNav,.detailContainerBlockValue,.content_container,.contentContainer,.smsc-container,body,.smsc-contextmenu-bubble,.selectionContainer,.agenda_grid_main,.topnav__menu,.bubble,.helper--height--mega,td,.dialog-content,.side-panel__panel,.wide-toolbar,.wide-toolbar__item--selected,.topnav__menu-arrow,.msgDetail--empty,.messageframe,.toolbar,.folders,.smscleftnavcontainer,.msgContentVal,.smsc-contextmenu-arrow::before{background-color:" + a["bg_color"] + " !important;}\n.smsc-contextmenu-arrow::after,.topnav__menu-arrow::after,.ui-dialog-titlebar{border-color:" + a["bg_color"] + " #0000 !important;}";
             document.head.appendChild(e);
         });
     };
@@ -65,7 +66,7 @@ async function apply_theme() {
     await browser.storage.local.get("border").then((a) => {
         let e = document.createElement("style");
         if (!a["border"]) {
-            e.innerText = ".msgInfoSpacer,.detailContainerBlock,.seperator,.toolbar-top,.toolbar-bottom,.navigation_container,.border{background-image: none !important;}\nfieldset,.course-session-page__container,.centerxy,.centerx,.centery{background-color: transparent !important}";
+            e.innerText = ".msgInfoSpacer,.detailContainerBlock,.seperator,.toolbar-top,.toolbar-bottom,.navigation_container,.border{background-image: none !important;}\nfieldset,.course-session-page__container,.centerxy,.centerx,.centery{background-color: transparent !important;}\n.course-session-page__container{border: none !important;}";
             if (!window.location.href.includes("composeMessage")) {
                 e.innerText += "\n td{ background-image: none!important; background-color: transparent !important}";
             };
@@ -76,6 +77,15 @@ async function apply_theme() {
 
 
 function apply_navbar_icons() {
+
+    if (!(document.head)) { apply_navbar_icons(); };
+
+    if (window.location.href.includes("results")) {
+        let btn_css_node = document.createElement("link");
+        btn_css_node.rel = "stylesheet";
+        btn_css_node.href = browser.runtime.getURL("/html_pages/SSPRO_btn.css");
+        document.head.appendChild(btn_css_node);
+    }
 
     for (let i = 0; i < btn_meta_array.length; i++) {
         let current_btn = document.getElementsByClassName("js-btn-" + btn_meta_array[i].name)[0];
@@ -125,7 +135,7 @@ function update_badges() {
 
             if (document.getElementsByClassName("toast__btn")[i].href.includes("Messages")) {
                 msg_badge_node.style.cssText = "visibility: visible";
-                msg_badge_node.innerText = String(Number(msg_badge_node.innerText) + 1);
+                msg_badge_node.innerText = String(Number(msgwindow._badge_node.innerText) + 1);
             }
         }
     }
@@ -134,6 +144,10 @@ function update_badges() {
 
 //apply options
 apply_theme();
+
+if (!window.location.href.includes("table")) {
+    browser.storage.local.set({ in_graph_mode: false });
+}
 
 //add the sspro btn to the topnav
 document.addEventListener("DOMContentLoaded", function () {
@@ -157,4 +171,3 @@ document.addEventListener("DOMContentLoaded", function () {
     if (window.location.href.includes("Messages")) { setInterval(update_badges, 200); }
 
 });
-

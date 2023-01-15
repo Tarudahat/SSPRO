@@ -3,7 +3,6 @@
     margin-left: -8;
     padding: 0;
     height: 48px;
-    width: 100.86%;
     min-height: 48px;
     background: #ff520e;
     align-items: center;
@@ -38,39 +37,18 @@
 .navbar_btn-exit {
     background-image: url(https://static6.smart-school.net/smsc/svg/exit_ic_white/exit_ic_white_24x24.svg);
     width: 13px;
+    height: 48px;
     overflow: hidden;
     background-size: 24px;
     background-repeat: no-repeat;
     background-position: 50%;
-    margin-left: auto;
+    position: absolute;
+    right: 0px;
 }
 
 body {
     background-color: #ffffff;
 }
-
-.option_btn {
-    padding: 14px;
-    border-radius: 4px;
-    border: 2px solid #ff520e;
-    background-color: #ff520e;
-    font-size: 18px;
-    color: white;
-    text-align: center;
-    cursor: pointer;
-}
-
-.option_btn.off {
-    background-color: transparent;
-    border: 2px solid rgb(219, 219, 219);
-    color: rgb(59, 59, 59);
-}
-
-.option_btn:hover {
-    opacity: 0.65;
-    transition: 725ms;
-}
-
 
 .color_picker {
     cursor: pointer;

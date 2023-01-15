@@ -1,2 +1,0 @@
-add score graphs
-add customisable notes
