@@ -45,6 +45,14 @@ async function apply_theme() {
         check_bool("use_icon").then((() => { inject_icon_css(); }));
         document.head.appendChild(css_element);
     });
+
+    if (window.location.href.includes("results")) {
+        let btn_css_node = document.createElement("link");
+        btn_css_node.rel = "stylesheet";
+        btn_css_node.href = browser.runtime.getURL("/html_pages/SSPRO_btn.css");
+        document.head.appendChild(btn_css_node);
+    }
+
     if (cstm_theme_used) {
         await browser.storage.local.get("navbar_color").then((a) => {
             let e = document.createElement("style");
@@ -77,16 +85,6 @@ async function apply_theme() {
 
 
 function apply_navbar_icons() {
-
-    if (!(document.head)) { apply_navbar_icons(); };
-
-    if (window.location.href.includes("results")) {
-        let btn_css_node = document.createElement("link");
-        btn_css_node.rel = "stylesheet";
-        btn_css_node.href = browser.runtime.getURL("/html_pages/SSPRO_btn.css");
-        document.head.appendChild(btn_css_node);
-    }
-
     for (let i = 0; i < btn_meta_array.length; i++) {
         let current_btn = document.getElementsByClassName("js-btn-" + btn_meta_array[i].name)[0];
         if (btn_meta_array[i].title == "Berichten" || btn_meta_array[i].title == "Meldingen") {

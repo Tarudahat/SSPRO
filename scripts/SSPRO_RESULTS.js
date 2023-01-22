@@ -2,8 +2,10 @@
 
 var using_grph_mode = false;
 
+//forgive me father for I have written not so object orientated code in js 
 var scraped_score_list = [];
 var course_names_array = [[]];
+var title_nodes_array = [];
 var grph_cnvs = [];
 
 async function check_bool(bool_name) {
@@ -13,13 +15,14 @@ async function check_bool(bool_name) {
 }
 
 //what js has nice objects? Well those are overrated not gonna lie...
-function scrape_score_data() {//rewrite
+function scrape_score_data() {
     let row_list = document.getElementsByClassName("row");
     let course_name_array_index = 0;
     let course_name = "";
     scraped_score_list = [];
     course_names_array = [[]];
-    grph_cnvs = [];//sus
+    title_nodes_array = [];
+    grph_cnvs = [];
     if (row_list) {
         let table_score_data = [];
         for (let i = 0; i < row_list.length; i++) {
@@ -45,6 +48,7 @@ function scrape_score_data() {//rewrite
                 }
 
             } else {
+                title_nodes_array.push(row_list[i].getElementsByClassName("cell__title")[0]);
                 scraped_score_list.push(table_score_data);
                 table_score_data = [];
                 course_names_array.push([]);
@@ -66,8 +70,30 @@ function draw_graph() {
         if (document.getElementById("SSPRO_graph_canvas_" + String(i))) {
             temp_canvas = document.getElementById("SSPRO_graph_canvas_" + String(i));
 
+            if (temp_canvas.added_btns == false) {
+                //r->255 || g->255 || r->0 || b->255 || g->0
+                let btn_div = document.createElement("div");
+
+                for (let i2 = 0; i2 < course_names_array[i].length; i2++) {
+                    let vak_btn = document.createElement("button");
+                    vak_btn.classList.add("option_btn");
+                    vak_btn.innerText = course_names_array[i][i2].replace("_", " ");
+                    vak_btn.title = vak_btn.innerText;
+                    vak_btn.id = String(i) + "_" + String(i2);
+                    vak_btn.style.cssText = "position: absolute; right: 50px;top:" + String(i2 * 70) + "px;";
+                    temp_canvas.after(vak_btn);
+                    vak_btn.addEventListener("click", () => { vak_btn.classList.toggle("off"); });
+                }
+                temp_canvas.added_btns = true;
+            }
+
+            if (document.getElementsByClassName("bubble--tooltip")[0]) {
+                document.getElementsByClassName("bubble--tooltip")[0].remove();
+            }
+
         } else {
             temp_canvas = document.createElement("canvas");
+            temp_canvas.added_btns = false;
         }
 
         if (!grph_cnvs[i]) {
@@ -103,15 +129,19 @@ function draw_graph() {
 
 
             for (let i3 = 0; i3 < scraped_score_list[i][i2].length; i3++) {
-                grph_cnvs[i].beginPath();
-                grph_cnvs[i].lineCap = "round";
-                grph_cnvs[i].lineWidth = 4;
-                grph_cnvs[i].strokeStyle = "red";
-                grph_cnvs[i].moveTo(82 + (971 / (scraped_score_list[i][i2].length - 1) * i3), 594 - (scraped_score_list[i][i2][i3][0] / 100) * 540);
-                if (i3 < scraped_score_list[i][i2].length - 1) {
-                    grph_cnvs[i].lineTo(82 + (971 / (scraped_score_list[i][i2].length - 1) * (i3 + 1)), 594 - (scraped_score_list[i][i2][i3 + 1][0] / 100) * 540);
+                if (document.getElementById(String(i) + "_" + String(i2))) {
+                    if (!document.getElementById(String(i) + "_" + String(i2)).classList.contains("off")) {
+                        grph_cnvs[i].beginPath();
+                        grph_cnvs[i].lineCap = "round";
+                        grph_cnvs[i].lineWidth = 4;
+                        grph_cnvs[i].strokeStyle = "red";
+                        grph_cnvs[i].moveTo(82 + (971 / (scraped_score_list[i][i2].length - 1) * i3), 594 - (scraped_score_list[i][i2][i3][0] / 100) * 540);
+                        if (i3 < scraped_score_list[i][i2].length - 1) {
+                            grph_cnvs[i].lineTo(82 + (971 / (scraped_score_list[i][i2].length - 1) * (i3 + 1)), 594 - (scraped_score_list[i][i2][i3 + 1][0] / 100) * 540);
+                        }
+                        grph_cnvs[i].stroke();
+                    }
                 }
-                grph_cnvs[i].stroke();
             }
         }
 
@@ -121,6 +151,13 @@ function draw_graph() {
             document.getElementsByClassName("table-page__container__wrapper")[0].remove();
         } else if (!document.getElementById("SSPRO_graph_canvas_" + String(i))) {
             document.getElementById("SSPRO_graph_canvas_" + String(i - 1)).after(temp_canvas);
+        }
+
+        if (title_nodes_array[i]) {
+            temp_canvas.before(title_nodes_array[i]);
+        }
+        if (title_nodes_array.length == i + 1) {
+            title_nodes_array = [];
         }
     }
 }
@@ -165,7 +202,6 @@ async function handel_graph_page() {
         }
         if (document.getElementsByClassName("graphic__text")[0]) {
             scrape_score_data();
-            console.log(scraped_score_list);
         }
         draw_graph();
     }

@@ -3,7 +3,7 @@
     border-radius: 4px;
     border: 2px solid #ff520e;
     background-color: #ff520e;
-    font-size: 18px;
+    font-size: 18px !important;
     color: white;
     text-align: center;
     cursor: pointer;
