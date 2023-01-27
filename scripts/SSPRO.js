@@ -41,6 +41,7 @@ async function apply_theme() {
         cstm_theme_used = use_theme_["use_theme"];
         let css_element = document.createElement("style");
         css_element.innerText = ".smsc-topnav .navbar_btn_icon_SSPRO{background-image: url('" + browser.runtime.getURL("icons/SSPRO_setting.png") + "') !important;}";
+        css_element.innerText += "\n.SSPRO_icon{background-image: url('" + browser.runtime.getURL("icons/SSPRO.png") + "') !important;}";
         if (!(document.head)) { apply_theme(); };
         check_bool("use_icon").then((() => { inject_icon_css(); }));
         document.head.appendChild(css_element);
@@ -61,7 +62,7 @@ async function apply_theme() {
         });
         await browser.storage.local.get("bg2_color").then((a) => {
             let e = document.createElement("style");
-            e.innerText = ".wide-toolbar__item,.listview__row:hover,.ui-button,.color_snow_white,.menu-item:hover,.modern-message__action:hover,.ui-button-icon,.topnav__menuitem:hover,.modern-message:hover,.smsc-column-nav__button:hover,.bootstrap__input,select,.skinButton,.skinButtonBg,.wide-toolbar__item::after,.wide-toolbar__item::before,.smsc-dropzone,.modern-message--selected,.blob,.navNextInput,.navPrevInput,.float-label__input,.input-search,.smscButton,.course-ico,.btn,checkbox {background-color:" + a["bg2_color"] + " !important; border-color:" + a["bg2_color"] + " !important;}\n.cell--spacer{border-color:" + a["bg2_color"] + " #0000 !important;}";
+            e.innerText = ".notification:hover,.wide-toolbar__item,.ui-button,.color_snow_white,.menu-item:hover,.modern-message__action:hover,.ui-button-icon,.topnav__menuitem:hover,.modern-message:hover,.smsc-column-nav__button:hover,.bootstrap__input,select,.skinButton,.skinButtonBg,.wide-toolbar__item::after,.wide-toolbar__item::before,.smsc-dropzone,.modern-message--selected,.blob,.navNextInput,.navPrevInput,.float-label__input,.input-search,.smscButton,.course-ico,.btn,checkbox {background-color:" + a["bg2_color"] + " !important; border-color:" + a["bg2_color"] + " !important;}\n.cell--spacer{border-color:" + a["bg2_color"] + " #0000 !important;}";
             document.head.appendChild(e);
         });
         await browser.storage.local.get("bg_color").then((a) => {
@@ -156,6 +157,20 @@ document.addEventListener("DOMContentLoaded", function () {
     sspro_settings_btn.title = "SSPRO instellingen";
     sspro_settings_btn.onclick = go_2_settings;
     topnav.appendChild(sspro_settings_btn);
+    /*<a href="/index.php?module=Manual&amp;file=manual&amp;function=main" class="topnav__menuitem 
+    topnav__menuitem--icon module-manual--24" role="menuitem" title="Handleiding" column-index="1" item-index="6">
+        Handleiding
+    </a>*/
+    var sspro_settings_goto_btn = document.createElement("a");
+    sspro_settings_goto_btn.href = browser.runtime.getURL("html_pages/SSPRO_settings.html");
+    var role_attribute = document.createAttribute("role");
+    role_attribute.value = "menuitem";
+    sspro_settings_goto_btn.setAttributeNode(role_attribute);
+    sspro_settings_goto_btn.classList.add("topnav__menuitem", "topnav__menuitem--icon", "SSPRO_icon");
+    sspro_settings_goto_btn.title = "SSPRO instellingen";
+    sspro_settings_goto_btn.innerText = sspro_settings_goto_btn.title;
+    document.getElementsByClassName("module-manual--24")[0].after(sspro_settings_goto_btn);
+
 
     check_bool("use_icon").then(((use_icons) => { if (use_icons) { apply_navbar_icons(); } }));
 

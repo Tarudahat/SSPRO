@@ -58,19 +58,29 @@ async function get_clr_val(obj_name) {
             }
         }
     });
+
 }
 
-function rtrn_theme_2_normal() {
+async function rtrn_theme_2_normal() {
+    let cba = [document.getElementById("navbar_color_btn"), document.getElementById("bg_color_btn"), document.getElementById("bg2_color_btn")];
     if (document.getElementById("use_theme_btn").classList.contains("off")) {
-        document.getElementById("navbar_color_btn").value = "#FF520E";
-        document.getElementById("bg_color_btn").value = "#FFFFFF";
-        document.getElementById("bg2_color_btn").value = "#FFFFFF";
+
+        for (let i = 0; i < cba.length; i++) {
+            cba[i].value = "#FFFFFF";
+            cba[i].disabled = true;
+        }
+        cba[0].value = "#FF520E";
+
         set_clr_val("navbar_color");
         set_clr_val("bg2_color");
         set_clr_val("bg_color");
         get_clr_val("navbar_color");
         get_clr_val("bg2_color");
         get_clr_val("bg_color");
+    } else {
+        cba[0].disabled = false;
+        cba[1].disabled = false;
+        cba[2].disabled = false;
     }
 }
 
@@ -79,7 +89,7 @@ const bool_name_array = ["show_dvj", "purple_score", "use_icon", "border", "show
 get_home_url();
 document.getElementById("rtrn_btn").addEventListener("click", () => { history.back(); });
 
-sync_btn2bool("use_theme");
+sync_btn2bool("use_theme").then(() => { rtrn_theme_2_normal() });
 document.getElementById("use_theme_btn").addEventListener("click", () => { toggle_bool("use_theme"); sync_btn2bool("use_theme"); rtrn_theme_2_normal(); });
 
 for (let i = 0; i < bool_name_array.length; i++) {
