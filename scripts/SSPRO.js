@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
     role_attribute.value = "menuitem";
     sspro_settings_goto_btn.setAttributeNode(role_attribute);
     sspro_settings_goto_btn.classList.add("topnav__menuitem", "topnav__menuitem--icon", "SSPRO_icon");
-    sspro_settings_goto_btn.title = "SSPRO instellingen";
+    sspro_settings_goto_btn.title = "SSPRO Instellingen";
     sspro_settings_goto_btn.innerText = sspro_settings_goto_btn.title;
     document.getElementsByClassName("module-manual--24")[0].after(sspro_settings_goto_btn);
 

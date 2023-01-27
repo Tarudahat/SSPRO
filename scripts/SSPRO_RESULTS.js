@@ -2,6 +2,12 @@
 
 var using_grph_mode = false;
 
+//I lack brain to do this nicely
+const rainbow_array = [[255, 0, 0], [255, 51, 0], [255, 102, 0], [255, 153, 0], [255, 204, 0], [255, 240, 0],
+[224, 255, 0], [180, 255, 0], [129, 255, 0], [76, 255, 0], [28, 255, 5],
+[0, 245, 66], [0, 255, 107], [0, 255, 158], [0, 255, 209], [0, 255, 255],
+[0, 204, 255], [0, 153, 255], [0, 102, 235], [0, 51, 230], [0, 0, 255]]
+
 //forgive me father for I have written not so object orientated code in js 
 var scraped_score_list = [];
 var course_names_array = [[]];
@@ -41,8 +47,10 @@ function scrape_score_data() {
                     for (let i2 = 0; i2 < evaluation_array.length; i2++) {
                         if (evaluation_array[i2].getElementsByClassName("graphic__text")[0]) {
                             let raw_score_string = evaluation_array[i2].getElementsByClassName("graphic__text")[0].title;
-                            let detail_id = evaluation_array[i2].getElementsByTagName("button")[0].getAttribute("evaluation-identifier");
-                            table_score_data[course_names_array[course_name_array_index].indexOf(course_name)].push([Math.round((Number(raw_score_string.replace(",", ".").split("/")[0]) / Number(raw_score_string.replace(",", ".").split("/")[1])) * 100), detail_id]);
+                            if ((!isNaN(Math.round((Number(raw_score_string.replace(",", ".").split("/")[0]) / Number(raw_score_string.replace(",", ".").split("/")[1])) * 100)))) {
+                                let detail_id = evaluation_array[i2].getElementsByTagName("button")[0].getAttribute("evaluation-identifier");
+                                table_score_data[course_names_array[course_name_array_index].indexOf(course_name)].push([Math.round((Number(raw_score_string.replace(",", ".").split("/")[0]) / Number(raw_score_string.replace(",", ".").split("/")[1])) * 100), detail_id]);
+                            }
                         }
                     }
                 }
@@ -57,7 +65,7 @@ function scrape_score_data() {
 
         }
         scraped_score_list.push(table_score_data);
-        if (scraped_score_list[0].length == 0) { scraped_score_list.shift(); }
+        if (scraped_score_list[0].length == 0) { scraped_score_list.shift(); course_names_array.shift(); }
     }
 }
 
@@ -69,19 +77,24 @@ function draw_graph() {
     for (let i = 0; i < scraped_score_list.length; i++) {
         if (document.getElementById("SSPRO_graph_canvas_" + String(i))) {
             temp_canvas = document.getElementById("SSPRO_graph_canvas_" + String(i));
-
+            //create the grph btns 
             if (temp_canvas.added_btns == false) {
-                //r->255 || g->255 || r->0 || b->255 || g->0
+
                 let btn_div = document.createElement("div");
+                btn_div.style.cssText = "max-width: 300px;max-height: 650px;overflow-y: scroll;margin-bottom:40px;";
+                temp_canvas.style.cssText += "float:left;margin-bottom:40px;";
+                temp_canvas.after(btn_div);
 
                 for (let i2 = 0; i2 < course_names_array[i].length; i2++) {
                     let vak_btn = document.createElement("button");
                     vak_btn.classList.add("option_btn");
                     vak_btn.innerText = course_names_array[i][i2].replace("_", " ");
                     vak_btn.title = vak_btn.innerText;
+                    let idk_man = Math.round(rainbow_array.length / course_names_array[i].length * i2);
+                    let btn_color = "rgb(" + String(rainbow_array[idk_man][0]) + "," + String(rainbow_array[idk_man][1]) + "," + String(rainbow_array[idk_man][2]) + ")";
+                    vak_btn.style.cssText = "display: grid; margin:5px;background-color:" + btn_color + "; border-color:" + btn_color + ";"
                     vak_btn.id = String(i) + "_" + String(i2);
-                    vak_btn.style.cssText = "position: absolute; right: 50px;top:" + String(i2 * 70) + "px;";
-                    temp_canvas.after(vak_btn);
+                    btn_div.appendChild(vak_btn);
                     vak_btn.addEventListener("click", () => { vak_btn.classList.toggle("off"); });
                 }
                 temp_canvas.added_btns = true;
@@ -134,7 +147,10 @@ function draw_graph() {
                         grph_cnvs[i].beginPath();
                         grph_cnvs[i].lineCap = "round";
                         grph_cnvs[i].lineWidth = 4;
-                        grph_cnvs[i].strokeStyle = "red";
+
+                        let idk_man = Math.round(rainbow_array.length / course_names_array[i].length * i2);
+                        grph_cnvs[i].strokeStyle = "rgb(" + String(rainbow_array[idk_man][0]) + "," + String(rainbow_array[idk_man][1]) + "," + String(rainbow_array[idk_man][2]) + ")";
+
                         grph_cnvs[i].moveTo(82 + (971 / (scraped_score_list[i][i2].length - 1) * i3), 594 - (scraped_score_list[i][i2][i3][0] / 100) * 540);
                         if (i3 < scraped_score_list[i][i2].length - 1) {
                             grph_cnvs[i].lineTo(82 + (971 / (scraped_score_list[i][i2].length - 1) * (i3 + 1)), 594 - (scraped_score_list[i][i2][i3 + 1][0] / 100) * 540);
@@ -245,7 +261,7 @@ function apply_purple_scores() {
 
 }
 
-check_bool("purple_score").then((use_ppl) => { if (use_ppl) { setInterval(apply_purple_scores, 80); }; });
+check_bool("purple_score").then((use_ppl) => { if (use_ppl) { setInterval(apply_purple_scores, 50); }; });
 
 
 check_bool("show_graph").then((show_grph) => {

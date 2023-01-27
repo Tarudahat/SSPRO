@@ -10,8 +10,8 @@
 }
 
 .option_btn.off {
-    background-color: transparent;
-    border: 2px solid rgb(219, 219, 219);
+    background-color: #f000 !important;
+    border: 2px solid rgb(219, 219, 219) !important;
     color: rgb(34, 34, 34);
 }
 
