@@ -60,16 +60,21 @@ async function apply_theme() {
             e.innerText = ".topnav,.login-app__platform-indicator{background-color:" + a["navbar_color"] + " !important;}\nbody{border-top-color:" + a["navbar_color"] + "!important}";
             document.head.appendChild(e);
         });
+        let bg2_color_temp;
         await browser.storage.local.get("bg2_color").then((a) => {
             let e = document.createElement("style");
             e.innerText = ".notification:hover,.wide-toolbar__item,.ui-button,.color_snow_white,.menu-item:hover,.modern-message__action:hover,.ui-button-icon,.topnav__menuitem:hover,.modern-message:hover,.smsc-column-nav__button:hover,.bootstrap__input,select,.skinButton,.skinButtonBg,.wide-toolbar__item::after,.wide-toolbar__item::before,.smsc-dropzone,.modern-message--selected,.blob,.navNextInput,.navPrevInput,.float-label__input,.input-search,.smscButton,.course-ico,.btn,checkbox {background-color:" + a["bg2_color"] + " !important; border-color:" + a["bg2_color"] + " !important;}\n.cell--spacer{border-color:" + a["bg2_color"] + " #0000 !important;}";
+            bg2_color_temp = a["bg2_color"];
             document.head.appendChild(e);
         });
         await browser.storage.local.get("bg_color").then((a) => {
             let e = document.createElement("style");
             e.innerText = ".ui-dialog-buttonpane,.ui-dialog-titlebar,.ui-dialog,.modern-message__actions,.context-menu,.notifs-toaster__toast,option,.spacer,.showLeftNav,.detailContainerBlockValue,.content_container,.contentContainer,.smsc-container,body,.smsc-contextmenu-bubble,.selectionContainer,.agenda_grid_main,.topnav__menu,.bubble,.helper--height--mega,td,.dialog-content,.side-panel__panel,.wide-toolbar,.wide-toolbar__item--selected,.topnav__menu-arrow,.msgDetail--empty,.messageframe,.toolbar,.folders,.smscleftnavcontainer,.msgContentVal,.smsc-contextmenu-arrow::before{background-color:" + a["bg_color"] + " !important;}\n.smsc-contextmenu-arrow::after,.topnav__menu-arrow::after,.ui-dialog-titlebar{border-color:" + a["bg_color"] + " #0000 !important;}";
+            e.innerHTML += " .bubble--tooltip{border-color:" + bg2_color_temp + " !important;background-color:" + bg2_color_temp + " !important;}\n .bubble--tooltip .bubble__arrow svg polyline{border-color:" + bg2_color_temp + " !important;stroke:" + bg2_color_temp + " !important;fill:" + bg2_color_temp + "!important;}";
             document.head.appendChild(e);
         });
+
+
     };
 
     await browser.storage.local.get("border").then((a) => {
@@ -157,10 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sspro_settings_btn.title = "SSPRO instellingen";
     sspro_settings_btn.onclick = go_2_settings;
     topnav.appendChild(sspro_settings_btn);
-    /*<a href="/index.php?module=Manual&amp;file=manual&amp;function=main" class="topnav__menuitem 
-    topnav__menuitem--icon module-manual--24" role="menuitem" title="Handleiding" column-index="1" item-index="6">
-        Handleiding
-    </a>*/
+
     var sspro_settings_goto_btn = document.createElement("a");
     sspro_settings_goto_btn.href = browser.runtime.getURL("html_pages/SSPRO_settings.html");
     var role_attribute = document.createAttribute("role");

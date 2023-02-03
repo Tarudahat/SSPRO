@@ -151,11 +151,31 @@ function draw_graph() {
                         let idk_man = Math.round(rainbow_array.length / course_names_array[i].length * i2);
                         grph_cnvs[i].strokeStyle = "rgb(" + String(rainbow_array[idk_man][0]) + "," + String(rainbow_array[idk_man][1]) + "," + String(rainbow_array[idk_man][2]) + ")";
 
+                        if (!document.getElementById(String(i) + "_" + String(i2) + "_" + String(i3))) {
+                            let score_btn = document.createElement("button");
+                            let left_offset = (82 + (971 / (scraped_score_list[i][i2].length - 1) * i3)) - 12;
+
+                            if (isNaN(left_offset)) { left_offset = (82 + 971 * i3) - 12; }
+
+                            score_btn.title = String(scraped_score_list[i][i2][i3][0]) + "%";
+                            score_btn.classList.add("option_btn");
+                            score_btn.style.cssText += "padding: 5px;border-radius: 25px !important;\n"
+                                + "opacity: 1!important; display: grid; margin:5px;background-color:" + grph_cnvs[i].strokeStyle + "; border-color:" + grph_cnvs[i].strokeStyle + ";"
+                                + "position:absolute; left: " + String(left_offset) + "px;top: " + String(temp_canvas.offsetTop + ((594 - (scraped_score_list[i][i2][i3][0] / 100) * 540) - 12)) + "px;";
+                            score_btn.addEventListener("click", () => { window.location.href = window.location.href.split("results/")[0] + "results/main/table/details/" + scraped_score_list[i][i2][i3][1] });
+                            score_btn.id = String(i) + "_" + String(i2) + "_" + String(i3);
+                            temp_canvas.after(score_btn)
+                        } else { document.getElementById(String(i) + "_" + String(i2) + "_" + String(i3)).hidden = false; }
+
                         grph_cnvs[i].moveTo(82 + (971 / (scraped_score_list[i][i2].length - 1) * i3), 594 - (scraped_score_list[i][i2][i3][0] / 100) * 540);
                         if (i3 < scraped_score_list[i][i2].length - 1) {
                             grph_cnvs[i].lineTo(82 + (971 / (scraped_score_list[i][i2].length - 1) * (i3 + 1)), 594 - (scraped_score_list[i][i2][i3 + 1][0] / 100) * 540);
                         }
                         grph_cnvs[i].stroke();
+                    } else {
+                        if (document.getElementById(String(i) + "_" + String(i2) + "_" + String(i3))) {
+                            document.getElementById(String(i) + "_" + String(i2) + "_" + String(i3)).hidden = true;
+                        }
                     }
                 }
             }
