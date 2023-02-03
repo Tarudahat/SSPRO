@@ -70,7 +70,7 @@ async function apply_theme() {
         await browser.storage.local.get("bg_color").then((a) => {
             let e = document.createElement("style");
             e.innerText = ".ui-dialog-buttonpane,.ui-dialog-titlebar,.ui-dialog,.modern-message__actions,.context-menu,.notifs-toaster__toast,option,.spacer,.showLeftNav,.detailContainerBlockValue,.content_container,.contentContainer,.smsc-container,body,.smsc-contextmenu-bubble,.selectionContainer,.agenda_grid_main,.topnav__menu,.bubble,.helper--height--mega,td,.dialog-content,.side-panel__panel,.wide-toolbar,.wide-toolbar__item--selected,.topnav__menu-arrow,.msgDetail--empty,.messageframe,.toolbar,.folders,.smscleftnavcontainer,.msgContentVal,.smsc-contextmenu-arrow::before{background-color:" + a["bg_color"] + " !important;}\n.smsc-contextmenu-arrow::after,.topnav__menu-arrow::after,.ui-dialog-titlebar{border-color:" + a["bg_color"] + " #0000 !important;}";
-            e.innerHTML += " .bubble--tooltip{border-color:" + bg2_color_temp + " !important;background-color:" + bg2_color_temp + " !important;}\n .bubble--tooltip .bubble__arrow svg polyline{border-color:" + bg2_color_temp + " !important;stroke:" + bg2_color_temp + " !important;fill:" + bg2_color_temp + "!important;}";
+            e.innerText += " .bubble--tooltip{border-color:" + bg2_color_temp + " !important;background-color:" + bg2_color_temp + " !important;}\n .bubble--tooltip .bubble__arrow svg polyline{border-color:" + bg2_color_temp + " !important;stroke:" + bg2_color_temp + " !important;fill:" + bg2_color_temp + "!important;}";
             document.head.appendChild(e);
         });
 
