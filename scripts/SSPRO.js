@@ -8,6 +8,7 @@ const btn_meta_array = [{ title: "Start", name: "home", has_popup: false },
 
 var number_of_new_msg;
 var toast_hrefs = [];
+var dubble_checked = false;
 
 function go_2_settings() {
     let temp_str = "{\"sspro_home_url\": \"" + window.location.href.split(".be")[0] + ".be" + "\"}";
@@ -95,14 +96,12 @@ function apply_navbar_icons() {
         let current_btn = document.getElementsByClassName("js-btn-" + btn_meta_array[i].name)[0];
         if (btn_meta_array[i].title == "Berichten" || btn_meta_array[i].title == "Meldingen") {
             current_btn.innerText = current_btn.innerText.replace(btn_meta_array[i].title, "");
-            if (current_btn.innerText.length >= 0) {
-                let notif_badge = document.createElement("span");
-                notif_badge.classList.add("topnav__badge", "SSPRO_notif_badge_" + btn_meta_array[i].name);
-                notif_badge.innerText = current_btn.innerText;
-                current_btn.innerText = "";
-                current_btn.appendChild(notif_badge);
-                if (current_btn.innerText.length == 0) { notif_badge.style.cssText = "visibility: hidden"; }
-            }
+            let notif_badge = document.createElement("span");
+            notif_badge.classList.add("topnav__badge", "SSPRO_notif_badge_" + btn_meta_array[i].name);
+            notif_badge.innerText = current_btn.innerText;
+            current_btn.innerText = "";
+            current_btn.appendChild(notif_badge);
+            if (current_btn.innerText.length == 0) { notif_badge.style.cssText = "visibility: hidden"; }
 
         } else { current_btn.innerText = ""; }
         current_btn.classList.add("topnav__btn--icon", "navbar_btn_icon_SSPRO_" + btn_meta_array[i].name);
@@ -114,7 +113,7 @@ function apply_navbar_icons() {
     }
 
     //updates the notifs indicator
-    document.getElementsByClassName("js-btn-notifs")[0].onclick = function () { document.getElementsByClassName("js-btn-notifs")[0].getElementsByClassName("SSPRO_notif_badge_notifs")[0].style.cssText = "visibility: hidden"; };
+    document.getElementsByClassName("js-btn-notifs")[0].onclick = function () { document.getElementsByClassName("js-btn-notifs")[0].getElementsByClassName("SSPRO_notif_badge_notifs")[0].innerText = "0"; document.getElementsByClassName("js-btn-notifs")[0].getElementsByClassName("SSPRO_notif_badge_notifs")[0].style.cssText = "visibility: hidden"; };
 }
 
 function update_badges() {
@@ -139,7 +138,7 @@ function update_badges() {
 
             if (document.getElementsByClassName("toast__btn")[i].href.includes("Messages")) {
                 msg_badge_node.style.cssText = "visibility: visible";
-                msg_badge_node.innerText = String(Number(msgwindow._badge_node.innerText) + 1);
+                msg_badge_node.innerText = String(Number(msg_badge_node.innerText) + 1);
             }
         }
     }
@@ -173,8 +172,9 @@ document.addEventListener("DOMContentLoaded", function () {
     sspro_settings_goto_btn.innerText = sspro_settings_goto_btn.title;
     document.getElementsByClassName("module-manual--24")[0].after(sspro_settings_goto_btn);
 
+    //updates the msg indicator and notifs if needed
 
-    check_bool("use_icon").then(((use_icons) => { if (use_icons) { apply_navbar_icons(); } }));
+    check_bool("use_icon").then(((use_icons) => { if (use_icons) { apply_navbar_icons(); setInterval(update_badges, 200); } }));
 
     if (document.contains(document.getElementById("homepage__block--student-support"))) {
         check_bool("show_dvj").then((show_bool) => { if (show_bool) { } else { document.getElementById("homepage__block--student-support").remove(); }; });
@@ -182,7 +182,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     number_of_new_msg = document.getElementsByClassName("modern-message--new").length;
 
-    //updates the msg indicator and notifs if needed
-    if (window.location.href.includes("Messages")) { setInterval(update_badges, 200); }
+
 
 });
