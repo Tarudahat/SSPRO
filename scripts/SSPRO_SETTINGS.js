@@ -11,7 +11,6 @@ async function get_home_url() {
     document.getElementById("exit_btn").href = home_url + "/logout";
 }
 
-
 async function sync_btn2bool(bool_name) {
     let btn_classlist = document.getElementById(bool_name + "_btn").classList;
     let show_bool;
@@ -55,6 +54,8 @@ async function get_clr_val(obj_name) {
                 case "bg_color":
                     document.body.style.cssText = "background:" + a[obj_name] + ";";
                     break;
+                case "bg2_color":
+                    document.getElementById("swap_img_txt").style.cssText = "background:" + a[obj_name] + ";";
             }
         }
     });
@@ -84,7 +85,20 @@ async function rtrn_theme_2_normal() {
     }
 }
 
-const bool_name_array = ["show_dvj", "purple_score", "use_icon", "border", "show_graph"];
+async function set_swap_txt() {
+    //remove " and ' from txt the value
+    document.getElementById("swap_img_txt").value = String(document.getElementById("swap_img_txt").value.replace("\"", "").replace("'", ""));
+    //actually set the local storage value
+    browser.storage.local.set(JSON.parse("{\"swap_img_txt_strg\":\"" + String(document.getElementById("swap_img_txt").value) + "\"}"));
+}
+
+async function get_swap_txt() {
+    browser.storage.local.get("swap_img_txt_strg").then((a) => {
+        document.getElementById("swap_img_txt").value = a["swap_img_txt_strg"];
+    });
+}
+
+const bool_name_array = ["show_dvj", "purple_score", "use_icon", "border", "show_graph", "swap_img"];
 
 get_home_url();
 document.getElementById("rtrn_btn").addEventListener("click", () => { history.back(); });
@@ -106,3 +120,5 @@ document.getElementById("bg_color_btn").addEventListener("input", () => { set_cl
 get_clr_val("bg2_color");
 document.getElementById("bg2_color_btn").addEventListener("input", () => { set_clr_val("bg2_color"); get_clr_val("bg2_color"); });
 
+get_swap_txt();
+document.getElementById("swap_img_txt").addEventListener("input", () => { set_swap_txt() });

@@ -89,7 +89,33 @@ async function apply_theme() {
         };
     });
 }
+///url1,url2;url3,url4
+async function swap_imgs() {
+    let img_elements = document.getElementsByTagName("img");
 
+    browser.storage.local.get("swap_img_txt_strg").then((a) => {
+        let url_partners = a["swap_img_txt_strg"].split(";");
+
+        for (let i = 0; i < img_elements.length; i++) {
+            for (let i2 = 0; i2 < url_partners.length; i2++) {
+
+                if (url_partners[i2].split(",")[0].includes("/logo")) {
+                    if (document.getElementsByClassName("login-app__school-logo")[0]) {
+                        document.getElementsByClassName("login-app__school-logo")[0].style.cssText = "background-image: url(" + url_partners[i2].split(",")[1] + ")"
+                    }
+                }
+                if (url_partners[i2].split(",")[0].includes("/smsctip-default")) {
+                    if (document.getElementsByTagName("source")[0]) {
+                        document.getElementsByTagName("source")[0].srcset = url_partners[i2].split(",")[1];
+                    }
+                }
+                if (img_elements[i].src.includes(url_partners[i2].split(",")[0])) { img_elements[i].src = url_partners[i2].split(",")[1]; }
+
+            }
+        }
+
+    });
+}
 
 function apply_navbar_icons() {
     for (let i = 0; i < btn_meta_array.length; i++) {
@@ -155,6 +181,8 @@ if (!window.location.href.includes("table")) {
 //add the sspro btn to the topnav
 document.addEventListener("DOMContentLoaded", function () {
 
+    check_bool("swap_img").then((use_img_swap) => { if (use_img_swap) { swap_imgs(); } });
+
     var topnav = document.getElementsByTagName("nav")[0];
     var sspro_settings_btn = document.createElement("button");
     sspro_settings_btn.className = "topnav__btn topnav__btn--icon navbar_btn_icon_SSPRO";
@@ -172,6 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sspro_settings_goto_btn.innerText = sspro_settings_goto_btn.title;
     document.getElementsByClassName("module-manual--24")[0].after(sspro_settings_goto_btn);
 
+
     //updates the msg indicator and notifs if needed
 
     check_bool("use_icon").then(((use_icons) => { if (use_icons) { apply_navbar_icons(); setInterval(update_badges, 200); } }));
@@ -181,7 +210,5 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     number_of_new_msg = document.getElementsByClassName("modern-message--new").length;
-
-
 
 });
