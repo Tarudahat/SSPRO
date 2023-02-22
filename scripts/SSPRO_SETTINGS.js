@@ -56,6 +56,7 @@ async function get_clr_val(obj_name) {
                     break;
                 case "bg2_color":
                     document.getElementById("swap_img_txt").style.cssText = "background:" + a[obj_name] + ";";
+                    document.getElementById("rmv_nodes_txt").style.cssText = "background:" + a[obj_name] + ";";
             }
         }
     });
