@@ -85,20 +85,23 @@ async function rtrn_theme_2_normal() {
     }
 }
 
-async function set_swap_txt() {
+async function set_strg_txt(obj_name) {
     //remove " and ' from txt the value
-    document.getElementById("swap_img_txt").value = String(document.getElementById("swap_img_txt").value.replace("\"", "").replace("'", ""));
+    document.getElementById(obj_name).value = String(document.getElementById(obj_name).value.replace("\"", "").replace("'", ""));
     //actually set the local storage value
-    browser.storage.local.set(JSON.parse("{\"swap_img_txt_strg\":\"" + String(document.getElementById("swap_img_txt").value) + "\"}"));
+    browser.storage.local.set(JSON.parse("{\"" + obj_name + "_strg\":\"" + String(document.getElementById(obj_name).value) + "\"}"));
 }
 
-async function get_swap_txt() {
-    browser.storage.local.get("swap_img_txt_strg").then((a) => {
-        document.getElementById("swap_img_txt").value = a["swap_img_txt_strg"];
+async function get_strg_txt(obj_name) {
+    browser.storage.local.get(obj_name + "_strg").then((a) => {
+        document.getElementById(obj_name).value = a[obj_name + "_strg"];
+        if (document.getElementById(obj_name).value == "undefined") {
+            document.getElementById(obj_name).value = "";
+        }
     });
 }
 
-const bool_name_array = ["show_dvj", "purple_score", "use_icon", "border", "show_graph", "swap_img"];
+const bool_name_array = ["show_dvj", "purple_score", "use_icon", "border", "show_graph", "swap_img", "rmv_nodes"];
 
 get_home_url();
 document.getElementById("rtrn_btn").addEventListener("click", () => { history.back(); });
@@ -120,5 +123,9 @@ document.getElementById("bg_color_btn").addEventListener("input", () => { set_cl
 get_clr_val("bg2_color");
 document.getElementById("bg2_color_btn").addEventListener("input", () => { set_clr_val("bg2_color"); get_clr_val("bg2_color"); });
 
-get_swap_txt();
-document.getElementById("swap_img_txt").addEventListener("input", () => { set_swap_txt() });
+get_strg_txt("swap_img_txt");
+document.getElementById("swap_img_txt").addEventListener("input", () => { set_strg_txt("swap_img_txt") });
+
+get_strg_txt("rmv_nodes_txt");
+document.getElementById("rmv_nodes_txt").addEventListener("input", () => { set_strg_txt("rmv_nodes_txt") });
+

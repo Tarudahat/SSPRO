@@ -89,6 +89,7 @@ async function apply_theme() {
         };
     });
 }
+
 ///url1,url2;url3,url4
 async function swap_imgs() {
     let img_elements = document.getElementsByTagName("img");
@@ -114,6 +115,27 @@ async function swap_imgs() {
             }
         }
 
+    });
+}
+
+async function rmv_nodes() {
+    browser.storage.local.get("rmv_nodes_txt_strg").then((a) => {
+        let list_of_dumb_elements_that_should_be_removed = a["rmv_nodes_txt_strg"].split(",");
+        for (let i = 0; i < list_of_dumb_elements_that_should_be_removed.length; i++) {
+            if (document.getElementById(list_of_dumb_elements_that_should_be_removed[i])) {
+                document.getElementById(list_of_dumb_elements_that_should_be_removed[i]).remove();
+            }
+            else if (document.getElementsByClassName(list_of_dumb_elements_that_should_be_removed[i])[0]) {
+
+                let same_class_array = document.getElementsByClassName(list_of_dumb_elements_that_should_be_removed[i]);
+                const ARRAY_LENGTH = same_class_array.length;
+                for (let i2 = 0; i2 < ARRAY_LENGTH; i2++) {
+                    if (!same_class_array[0].classList.contains("navbar_btn_icon_SSPRO")) {
+                        same_class_array[0].remove();
+                    }
+                }
+            }
+        }
     });
 }
 
@@ -182,6 +204,8 @@ if (!window.location.href.includes("table")) {
 document.addEventListener("DOMContentLoaded", function () {
 
     check_bool("swap_img").then((use_img_swap) => { if (use_img_swap) { swap_imgs(); } });
+
+    check_bool("rmv_nodes").then((rmv_nodes_bool) => { if (rmv_nodes_bool) { rmv_nodes(); } });
 
     var topnav = document.getElementsByTagName("nav")[0];
     var sspro_settings_btn = document.createElement("button");
