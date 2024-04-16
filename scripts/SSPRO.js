@@ -4,7 +4,8 @@ const btn_meta_array = [{ title: "Start", name: "home", has_popup: false },
 { title: "Vakken", name: "courses", has_popup: true },
 { title: "Berichten", name: "messages", has_popup: false },
 { title: "Meldingen", name: "notifs", has_popup: true },
-{ title: "Ga naar", name: "shortcuts", has_popup: true }];
+{ title: "Ga naar", name: "shortcuts", has_popup: true },
+{ title: "Links", name: "links", has_popup: true }];
 
 var number_of_new_msg;
 var toast_hrefs = [];
